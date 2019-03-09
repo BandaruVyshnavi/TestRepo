@@ -1,0 +1,80 @@
+---
+
+- name: Ansible Terraform module
+  hosts: localhost
+  vars_files: 
+    - vars.yml
+  tasks:
+    - name: Terraform plan
+      register: tf_plan
+      terraform:
+        project_path: '{{ project_path }}'
+        backend_config:
+          bucket: '{{ s3bucket }}'
+          key: '{{ s3key }}'
+          region: '{{ s3region }}'
+        plan_file: '{{ project_path }}/my_tfplan'
+        state: planned
+        force_init: true
+      #check_mode: yes
+      tags:
+         - plan
+
+    - name: Debug Terraform plan
+      debug:
+        var: tf_plan.stdout_lines
+      tags:
+         - plan 
+
+    - name: Terraform apply
+      register: tf_apply
+      terraform:
+        project_path: '{{ project_path }}'
+        backend_config:
+          bucket: '{{ s3bucket }}'
+          key: '{{ s3key }}'
+          region: '{{ s3region }}'
+        plan_file: '{{ project_path }}/my_tfplan'
+        state: present
+      tags: 
+         - apply
+
+    - name: Debug Terraform apply
+      debug:
+        var: tf_apply.stdout_lines
+      tags:
+         - apply  
+
+    - name: Terraform execute(plan and apply)
+      register: tf_execute
+      terraform:
+        project_path: '{{ project_path }}'
+        backend_config:
+          bucket: '{{ s3bucket }}'
+          key: '{{ executes3key }}'
+          region: '{{ s3region }}'             
+        state: present
+      tags:
+         - execute
+
+    - name: Debug Terraform execute
+      debug:
+        var: tf_execute.stdout_lines
+      tags:
+         - execute
+
+    - name: Terraform destroy
+      register: tf_destroy
+      terraform:
+        project_path: '{{ project_path }}'       
+        plan_file: '{{ project_path }}/my_tfplan'
+        state: absent
+        purge_workspace: true
+      tags:
+         - destroy
+
+    - name: Debug Terraform destroy
+      debug:
+        var: tf_destroy.stdout_lines
+      tags:
+         - destroy
