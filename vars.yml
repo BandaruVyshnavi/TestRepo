@@ -1,4 +1,4 @@
-project_path: /etc/ansible/trr
+project_path: /tmp/TestterrAnsi/trr
 s3bucket: terransitest
 s3key: test.tfstate
 s3region: us-east-1
