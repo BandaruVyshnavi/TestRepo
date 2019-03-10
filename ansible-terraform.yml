@@ -11,7 +11,7 @@
         project_path: '{{ project_path }}'
         backend_config:
           bucket: '{{ s3bucket }}'
-          key: '{{ executes3key }}'
+          key: '{{ s3key }}'
           region: '{{ s3region }}'
         plan_file: '{{ project_path }}/my_tfplan'
         state: planned
@@ -47,7 +47,7 @@
         project_path: '{{ project_path }}'
         backend_config:
           bucket: '{{ s3bucket }}'
-          key: '{{ executes3key }}'
+          key: '{{ s3key }}'
           region: '{{ s3region }}'            
         state: present
         force_init: true
