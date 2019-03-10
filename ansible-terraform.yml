@@ -52,8 +52,9 @@
         backend_config:
           bucket: '{{ s3bucket }}'
           key: '{{ executes3key }}'
-          region: '{{ s3region }}'             
+          region: '{{ s3region }}'            
         state: present
+        force_init: true
       tags:
          - execute
 
