@@ -16,7 +16,7 @@ This playbook is designed with the following capabilities:
 * Install Terraform
 * Install Ansible (2.7+)
 
-## Usage and Execution
+## Usage
 
 This playbook spins up an AWS EC2 instance in a default VPC. This playbook works locally, however, you can update the 'hosts' file to work on remote machines. "Tags" attribute has been used to run specific parts of the playbook.
  
