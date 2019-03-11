@@ -13,6 +13,8 @@
           bucket: '{{ s3bucket }}'
           key: '{{ s3key }}'
           region: '{{ s3region }}'
+        variables:
+          TagName: '{{ TagName }}'
         plan_file: '{{ project_path }}/my_tfplan'
         state: planned
         force_init: true
